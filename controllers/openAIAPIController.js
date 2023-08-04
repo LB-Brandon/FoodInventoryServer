@@ -16,6 +16,7 @@ async function getFoods(req, res) {
 		res.status(500).send('Server Error');
 	}
 }
+//features
 
 //ejs 템플릿 엔진을 사용하여 렌더링
 
