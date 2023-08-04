@@ -7,7 +7,7 @@ async function createUser(req, res) {
 		const user = new User({ name, email });
 		await user.save();
 
-		res.status(201).jsong(user);
+		res.status(201).json(user);
 	} catch (error) {
 		res.status(400).json({ error: error.message });
 	}

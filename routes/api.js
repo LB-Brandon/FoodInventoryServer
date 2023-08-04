@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var openAIAPIController = require('../controllers/openAIAPIController');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-	res.json({ message: 'Welcome to FoodInventoryPro!' });
-});
+router.get('/', openAIAPIController.getFoods);
 
 module.exports = router;
