@@ -1,11 +1,13 @@
 const { Configuration, OpenAIApi } = require('openai');
 const fetch = import('node-fetch');
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 // get key from .env file
-require('dotenv').config();
 const openAPIKey = process.env.API_KEY;
 
 async function getFoods(req, res) {
+	console.log(openAPIKey);
 	try {
 		const apiResponse = await runPrompt();
 		const data = JSON.parse(apiResponse);
