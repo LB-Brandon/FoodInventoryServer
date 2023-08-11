@@ -32,7 +32,7 @@ async function getRecipes(req, res) {
 // }
 
 module.exports = {
-	getFoods: getRecipes,
+	getRecipes: getRecipes,
 };
 
 const config = new Configuration({
