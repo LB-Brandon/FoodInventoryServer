@@ -2,7 +2,7 @@ const { Configuration, OpenAIApi } = require('openai');
 const DBService = require('./DBService');
 
 // get key from .env file
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/../.env' });
 const openAPIKey = process.env.API_KEY;
 
 async function getRecipes(req, res) {
