@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-
+require('dotenv').config();
 // MongoDB connection URL
-const dbURL = 'mongodb://foodinventorypro.com:27017/food_inventory_pro';
+const dbURL = process.env.MONGODB_URI;
 
 // Connect to MongoDB
 mongoose.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true });

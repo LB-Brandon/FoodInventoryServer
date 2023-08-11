@@ -22,6 +22,6 @@ const userSchema = new mongoose.Schema({
 });
 
 // This name "User" is will be used to match the MongoDB collection named "users".
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema, 'users');
 
 module.exports = User;

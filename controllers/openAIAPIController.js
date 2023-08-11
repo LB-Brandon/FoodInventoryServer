@@ -5,10 +5,10 @@ const DBService = require('./DBService');
 require('dotenv').config();
 const openAPIKey = process.env.API_KEY;
 
-async function getFoods(req, res) {
+async function getRecipes(req, res) {
 	try {
 		const newRecipeJson = await runPrompt();
-		const savedRecipe = await DBService.saveRecipe(newRecipeJson);
+		await DBService.saveRecipe(newRecipeJson);
 		res.json(newRecipeJson);
 		// res.render('api', { data: apiResponse }); // 데이터를 포함한 템플릿 렌더링
 	} catch (error) {
@@ -32,7 +32,7 @@ async function getFoods(req, res) {
 // }
 
 module.exports = {
-	getFoods,
+	getFoods: getRecipes,
 };
 
 const config = new Configuration({

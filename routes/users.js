@@ -11,6 +11,6 @@ router.get('/', userController.getUsers);
 router.post('/register', userController.createUser);
 
 // 특정 사용자 ingredient 추가 업데이트
-router.post('/addingredients', userController.addUserIngredients);
+router.post('/addingredients', userController.saveIngredients);
 
 module.exports = router;

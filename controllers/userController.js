@@ -11,19 +11,20 @@ module.exports = {
 			res.status(500).json({ error: error.message });
 		}
 	},
-	addUserIngredients: async function (req, res) {
-		const userId = req.body.id;
+	saveIngredients: async function (req, res) {
+		const userEmail = req.body.email;
 		const receivedIngredients = req.body.ingredients;
-		console.log('userId:', userId);
+		console.log('userEmail:', userEmail);
 		console.log('receivedIngredients:', receivedIngredients);
 
 		try {
-			DBService.addIngredients(userId, receivedIngredients);
+			DBService.addIngredients(userEmail, receivedIngredients);
 			res.json({ message: 'success' });
 		} catch (error) {
 			res.status(500).json({ error: error.message });
 		}
 	},
+
 	createUser: async function (req, res) {
 		const userName = req.body.name;
 		const userPassword = req.body.password;
@@ -64,7 +65,7 @@ module.exports = {
 					res.json({ message: 'Incorrect password' });
 				}
 			} else {
-				console.log('User not found:', userEmail);
+				console.log('Login User not found:', userEmail);
 				res.json({ message: 'User not found' });
 			}
 		} catch (error) {

@@ -4,9 +4,9 @@ const User = require('../models/userModel');
 class DBService {
 	async saveRecipe(recipeJson) {
 		try {
-			const newRecipe = await Recipe.findOne({ name: recipeJson.name });
+			const newRecipe = await Recipe.findOne({ Name: recipeJson.name });
 			if (!newRecipe) {
-				const newRecipeInstance = new Recipe(newRecipe);
+				const newRecipeInstance = new Recipe(recipeJson);
 				const savedRecipe = await newRecipeInstance.save();
 				console.log('Recipe saved:', savedRecipe.Name);
 				return savedRecipe;
@@ -15,7 +15,6 @@ class DBService {
 			}
 		} catch (error) {
 			console.error('Error importing data:', error);
-			mongoose.connection.close();
 			throw new Error('Server Error');
 		}
 	}
@@ -36,14 +35,25 @@ class DBService {
 		}
 	}
 
-	async addIngredients(userId, receivedIngredients) {
+	async addNewUser(newUser) {
+		try {
+			const savedUser = await newUser.save();
+			console.log('User saved:', savedUser.Name);
+			return savedUser;
+		} catch (error) {
+			console.error('Error creating user:', error);
+			throw new Error('Server Error');
+		}
+	}
+
+	async addIngredients(userEmail, receivedIngredients) {
 		// find user by id
 		// mockUserId = '64d3f99d43bc1ea2c2056bac';
 
-		const user = await this.findUserById(userId);
+		const user = await this.findUserByEmail(userEmail);
 		if (user) {
 			// add recived ingredients to user's ingredients
-			console.log(typeof user.Ingredients, 'user.Ingredients', user.Ingredients);
+			// console.log(typeof user.Ingredients, 'user.Ingredients', user.Ingredients);
 			const orginUserList = Array.from(user.Ingredients);
 			const updateUserIngredients = [...orginUserList, ...receivedIngredients];
 			// remove duplicates
@@ -52,11 +62,10 @@ class DBService {
 			// save user
 			user.Ingredients = uniqueIngredients;
 			const savedUser = await user.save();
-
-			console.log('User saved:', savedUser.Name);
+			console.log('ingredients saved:', savedUser.Ingredients);
 			return savedUser;
 		} else {
-			console.log('User not found:', userId);
+			console.log('findUserByEmail - User not found:', userEmail);
 			return null;
 		}
 	}
