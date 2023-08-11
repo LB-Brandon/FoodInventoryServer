@@ -1,18 +1,18 @@
 const { Configuration, OpenAIApi } = require('openai');
-const fetch = import('node-fetch');
+const DBService = require('./DBService');
 
 // get key from .env file
 require('dotenv').config();
 const openAPIKey = process.env.API_KEY;
 
-async function getFoods(req, res) {
+async function getRecipes(req, res) {
 	try {
-		const apiResponse = await runPrompt();
-		const data = JSON.parse(apiResponse);
-		res.json(data);
+		const newRecipeJson = await runPrompt();
+		await DBService.saveRecipe(newRecipeJson);
+		res.json(newRecipeJson);
 		// res.render('api', { data: apiResponse }); // 데이터를 포함한 템플릿 렌더링
 	} catch (error) {
-		console.error('Error:', error);
+		console.error('Error importing data:', error);
 		res.status(500).send('Server Error');
 	}
 }
@@ -32,7 +32,7 @@ async function getFoods(req, res) {
 // }
 
 module.exports = {
-	getFoods,
+	getFoods: getRecipes,
 };
 
 const config = new Configuration({
@@ -71,7 +71,7 @@ const runPrompt = async () => {
 	});
 
 	console.log(response.data.choices[0].message.content);
-	return response.data.choices[0].message.content;
+	return JSON.parse(response.data.choices[0].message.content);
 };
 
 // runPrompt();
