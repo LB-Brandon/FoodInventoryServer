@@ -21,7 +21,7 @@ module.exports = {
 			// });
 
 			if (existingRecipeList.length === 5) {
-				return res.json(existingRecipeList);
+				return res.json({ result: existingRecipeList });
 			}
 
 			const newRecipeTitleList = recommendedRecipeTitleList.filter(
@@ -36,14 +36,10 @@ module.exports = {
 			for (const recipe of newRecipeList) {
 				recipe.imageUrl = await imageService.getImageUrl(recipe.name);
 			}
-
 			await recipeService.saveRecipeList(newRecipeList);
 
 			const combinedRecipeList = [...existingRecipeList, ...newRecipeList];
-			const result = { result: combinedRecipeList };
-			// console.log('combinedRecipeList:', combinedRecipeList);
-
-			return res.json(result);
+			return res.json({ result: combinedRecipeList });
 		} catch (error) {
 			res.status(500).json({ error: error.message });
 		}
