@@ -29,11 +29,12 @@ module.exports = {
 			);
 			console.log('newRecipeTitleList:', newRecipeTitleList);
 
-			const newRecipeList = recipeService.getRecipeDetails(newRecipeTitleList, storedIngredientList);
-			// console.log('newRecipeList', newRecipeList);
+			const newRecipeList = await recipeService.getRecipeDetails(newRecipeTitleList, storedIngredientList);
+			console.log('newRecipeList', newRecipeList);
+			console.log('newRecipeList', typeof newRecipeList);
 
 			for (const recipe of newRecipeList) {
-				recipe.imageUrl = imageService.getImageUrl(recipe.name);
+				recipe.imageUrl = await imageService.getImageUrl(recipe.name);
 			}
 
 			await recipeService.saveRecipeList(newRecipeList);
