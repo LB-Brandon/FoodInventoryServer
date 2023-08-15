@@ -4,20 +4,24 @@ const cheerio = require('cheerio');
 async function getImageUrl(keyword) {
 	try {
 		const url = `https://www.google.com/search?q=${encodeURIComponent(keyword)}&tbm=isch&tbs=isz:m&hl=en-US`;
-		const headers = {
-			'User-Agent':
-				'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
-		};
+		// const headers = {
+		// 	'User-Agent':
+		// 		'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
+		// };
 
-		const response = await axios.get(url, { headers });
+		// const response = await axios.get(url, { headers });
+		const response = await axios.get(url);
 
 		const $ = cheerio.load(response.data);
-		const targetClassName = '.bRMDJf.islir';
-		const imgElement = $(targetClassName).first();
-		const imgUrl = imgElement.find('img').attr('src');
+		// const targetClassName = '.bRMDJf.islir';
+		// const imgElement = $(targetClassName).first();
+		// const imgUrl = imgElement.find('img').attr('src');
+		const targetClassName = 'img.yWs4tf';
+		const imageElement = $(targetClassName).first();
+		const imgUrl = imageElement.attr('src');
 
 		if (imgUrl) {
-			console.log(`First Image URL: ${imgUrl}`);
+			console.log(`Found URL: ${imgUrl}`);
 		} else {
 			console.log('No image found.');
 		}

@@ -1,45 +1,22 @@
-const User = require('../models/userModel');
-const DBService = require('./DBService');
+const userService = require('./userService');
+const userModel = require('../models/userModel');
 
 module.exports = {
-	getUsers: async function (req, res) {
-		try {
-			const users = await User.find();
-			res.json(users);
-			// res.json({ name: 'test' });
-		} catch (error) {
-			res.status(500).json({ error: error.message });
-		}
-	},
-	saveIngredients: async function (req, res) {
-		const userEmail = req.body.email;
-		const receivedIngredients = req.body.ingredients;
-		console.log('userEmail:', userEmail);
-		console.log('receivedIngredients:', receivedIngredients);
-
-		try {
-			DBService.addIngredients(userEmail, receivedIngredients);
-			res.json({ message: 'success' });
-		} catch (error) {
-			res.status(500).json({ error: error.message });
-		}
-	},
-
 	createUser: async function (req, res) {
-		const userName = req.body.name;
-		const userPassword = req.body.password;
-		const userEmail = req.body.email;
-		console.log('req.body:', req.body);
 		try {
-			const foundUser = await DBService.findUserByEmail(userEmail);
+			const userName = req.body.name;
+			const userPassword = req.body.password;
+			const userEmail = req.body.email;
+			console.log('req.body:', req.body);
+			const foundUser = await userService.findUserByEmail(userEmail);
 			if (!foundUser) {
-				const newUser = new User({
-					Name: userName,
-					Password: userPassword,
-					Email: userEmail,
+				const newUser = new userModel({
+					name: userName,
+					password: userPassword,
+					email: userEmail,
 				});
 				// save new user to database
-				await DBService.addNewUser(newUser);
+				await userService.addNewUser(newUser);
 				res.json({ message: 'success' });
 			} else {
 				console.log('User already exists:', userEmail);
@@ -50,15 +27,15 @@ module.exports = {
 			res.status(500).json({ error: error.message });
 		}
 	},
-	loginUser: async function (req, res) {
-		const userEmail = req.body.email;
-		const userPassword = req.body.password;
-		console.log('req.body:', req.body);
+	login: async function (req, res) {
 		try {
-			const foundUser = await DBService.findUserByEmail(userEmail);
+			const userEmail = req.body.email;
+			const userPassword = req.body.password;
+			console.log('req.body:', req.body);
+			const foundUser = await userService.findUserByEmail(userEmail);
 			if (foundUser) {
-				if (foundUser.Password === userPassword) {
-					console.log('User logged in:', foundUser.Name);
+				if (foundUser.password === userPassword) {
+					console.log('User logged in:', foundUser.name);
 					res.json({ message: 'success' });
 				} else {
 					console.log('Incorrect password:', userEmail);
@@ -70,12 +47,20 @@ module.exports = {
 			}
 		} catch (error) {
 			console.error('Error logging in user:', error);
-			res.status(500).json({ error: error.message });
+			throw new Error('Server Error');
+		}
+	},
+	saveIngredients: async function (req, res) {
+		try {
+			const userEmail = req.body.email;
+			const receivedIngredients = req.body.ingredients;
+			console.log('userEmail:', userEmail);
+			console.log('receivedIngredients:', receivedIngredients);
+			userService.addIngredients(userEmail, receivedIngredients);
+			res.json({ message: 'ingredients saved' });
+		} catch (error) {
+			console.error('Error logging in user:', error);
+			throw new Error('Server Error');
 		}
 	},
 };
-
-// module.exports = {
-// 	getUsers,
-// 	addIngredients,
-// };
