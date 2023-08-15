@@ -21,7 +21,7 @@ module.exports = {
 			// });
 
 			if (existingRecipeList.length === 5) {
-				res.json(existingRecipeList);
+				return res.json(existingRecipeList);
 			}
 
 			const newRecipeTitleList = recommendedRecipeTitleList.filter(
@@ -39,10 +39,10 @@ module.exports = {
 
 			await recipeService.saveRecipeList(newRecipeList);
 
-			const combinedRecipeList = [...existingRecipeList, ...newRecipeList];
+			const combinedRecipeList = { ...existingRecipeList, ...newRecipeList };
 			// console.log('combinedRecipeList:', combinedRecipeList);
 
-			res.json(combinedRecipeList);
+			return res.json(combinedRecipeList);
 		} catch (error) {
 			res.status(500).json({ error: error.message });
 		}
