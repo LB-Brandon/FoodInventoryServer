@@ -16,11 +16,15 @@ module.exports = {
 					email: userEmail,
 				});
 				// save new user to database
-				await userService.addNewUser(newUser);
-				res.json({ message: 'success' });
+				const status = await userService.addNewUser(newUser);
+				if (status) {
+					res.json({ status: status, message: 'success' });
+				} else {
+					res.json({ status: status, message: 'failed' });
+				}
 			} else {
 				console.log('User already exists:', userEmail);
-				res.json({ message: 'User already exists' });
+				res.json({ status: false, message: 'failed' });
 			}
 		} catch (error) {
 			console.error('Error creating user:', error);
