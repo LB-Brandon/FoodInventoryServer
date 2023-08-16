@@ -26,7 +26,7 @@ module.exports = {
 		try {
 			const savedUser = await newUser.save();
 			console.log('User saved:', savedUser.name);
-			return savedUser;
+			return true;
 		} catch (error) {
 			console.error('Error creating user:', error);
 			throw new Error('Server Error');
