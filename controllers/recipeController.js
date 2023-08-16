@@ -21,6 +21,9 @@ module.exports = {
 			// });
 
 			if (existingRecipeList.length === 5) {
+				for (const recipe of existingRecipeList) {
+					console.log('existingRecipeList - recipe:', recipe.name);
+				}
 				return res.json({ result: existingRecipeList });
 			}
 
@@ -40,7 +43,7 @@ module.exports = {
 
 			const combinedRecipeList = [...existingRecipeList, ...newRecipeList];
 			for (const recipe of combinedRecipeList) {
-				console.log('recipe:', recipe.name);
+				console.log('combinedRecipeList - recipe:', recipe.name);
 			}
 			return res.json({ result: combinedRecipeList });
 		} catch (error) {
