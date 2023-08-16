@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 
 async function getImageUrl(keyword) {
 	try {
-		const url = `https://www.google.com/search?q=${encodeURIComponent(keyword)}&tbm=isch&tbs=isz:m&hl=en-US`;
+		const url = `https://www.google.com/search?q=${encodeURIComponent(keyword)}&tbm=isch&tbs=isz:l&hl=en-US`;
 		// const headers = {
 		// 	'User-Agent':
 		// 		'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',

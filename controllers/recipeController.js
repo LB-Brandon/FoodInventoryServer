@@ -39,6 +39,9 @@ module.exports = {
 			await recipeService.saveRecipeList(newRecipeList);
 
 			const combinedRecipeList = [...existingRecipeList, ...newRecipeList];
+			for (const recipe of combinedRecipeList) {
+				console.log('recipe:', recipe.name);
+			}
 			return res.json({ result: combinedRecipeList });
 		} catch (error) {
 			res.status(500).json({ error: error.message });
