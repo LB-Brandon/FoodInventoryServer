@@ -2,7 +2,7 @@ const userService = require('./userService');
 const userModel = require('../models/userModel');
 
 module.exports = {
-	createUser: async function (req, res) {
+	signUp: async function (req, res) {
 		try {
 			const userName = req.body.name;
 			const userPassword = req.body.password;
@@ -40,14 +40,14 @@ module.exports = {
 			if (foundUser) {
 				if (foundUser.password === userPassword) {
 					console.log('User logged in:', foundUser.name);
-					res.json({ message: 'success' });
+					res.json({ status: true, message: 'success' });
 				} else {
 					console.log('Incorrect password:', userEmail);
-					res.json({ message: 'Incorrect password' });
+					res.json({ status: false, message: 'Incorrect password' });
 				}
 			} else {
 				console.log('Login User not found:', userEmail);
-				res.json({ message: 'User not found' });
+				res.json({ status: false, message: 'User not found' });
 			}
 		} catch (error) {
 			console.error('Error logging in user:', error);
