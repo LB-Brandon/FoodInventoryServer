@@ -9,6 +9,7 @@ const openai = new OpenAIApi(config);
 
 module.exports = {
 	saveRecipeList: async (recipeList) => {
+		console.log('Saving recipe list');
 		try {
 			for (const recipe of recipeList) {
 				const { name } = recipe;
