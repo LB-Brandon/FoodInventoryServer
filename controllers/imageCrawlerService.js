@@ -4,12 +4,6 @@ const AWS = require('aws-sdk');
 require('dotenv').config({ path: __dirname + '/../.env' });
 const uuid = require('uuid');
 
-AWS.config.update({
-	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-	region: process.env.AWS_REGION,
-});
-
 async function getImageUrl(keyword) {
 	try {
 		var imageUrl = '';
@@ -40,6 +34,11 @@ async function getImageUrl(keyword) {
 		}
 
 		// Upload image to S3
+		AWS.config.update({
+			accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+			secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+			region: process.env.AWS_REGION,
+		});
 		const s3 = new AWS.S3();
 		console.log(`Uploading image to S3 : ${keyword}`);
 		// Convert base64 to Buffer
