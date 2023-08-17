@@ -3,6 +3,11 @@ const chromium = require('chrome-aws-lambda');
 const AWS = require('aws-sdk');
 require('dotenv').config({ path: __dirname + '/../.env' });
 const uuid = require('uuid');
+AWS.config.update({
+	accessKeyId: process.env.AWS_ACCESS_KEY,
+	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+	region: process.env.AWS_REGION,
+});
 
 async function getImageUrl(keyword) {
 	try {
@@ -33,16 +38,11 @@ async function getImageUrl(keyword) {
 		}
 
 		// Upload image to S3
-		AWS.config.update({
-			accessKeyId: process.env.AWS_ACCESS_KEY,
-			secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-			region: process.env.AWS_REGION,
-		});
 		const s3 = new AWS.S3();
 		console.log(`Uploading image to S3 : ${keyword}`);
 		// Convert base64 to Buffer
 		// const imageBuffer = Buffer.from(base64Image, 'base64');
-		const imageBuffer = new Buffer.from(base64.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+		const imageBuffer = new Buffer.from(base64Image.replace(/^data:image\/\w+;base64,/, ''), 'base64');
 		const folderPath = 'main-recipes/';
 		// create unique image file name
 		const uniqueFileName = `${uuid.v4()}.jpg`;
