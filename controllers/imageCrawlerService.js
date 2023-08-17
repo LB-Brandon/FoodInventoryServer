@@ -6,7 +6,6 @@ const uuid = require('uuid');
 
 async function getImageUrl(keyword) {
 	try {
-		var imageUrl = '';
 		const browser = await puppeteer.launch({
 			headless: 'new',
 			executablePath: await chromium.executablePath,
