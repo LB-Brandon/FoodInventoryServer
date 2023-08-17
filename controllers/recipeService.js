@@ -73,6 +73,7 @@ module.exports = {
 	},
 
 	getExistingRecipeList: async (recommendedRecipeTitleList) => {
+		console.log('recommendedRecipeTitleList', recommendedRecipeTitleList);
 		const existingRecipeList = await recipeModel.find({ name: { $in: recommendedRecipeTitleList } }).limit(5);
 		return existingRecipeList;
 	},

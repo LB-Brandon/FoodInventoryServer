@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const mainRecipeSchema = new mongoose.Schema({
-	name: { type: String, unique: true },
+	name: { type: String, required: true, index: true, unique: true },
 	serving: { type: Number },
 	time: { type: String },
 	ingredients: { type: [String] }, // ingredients 필드는 문자열 리스트로 정의
@@ -10,5 +10,7 @@ const mainRecipeSchema = new mongoose.Schema({
 });
 
 const MainRecipe = mongoose.model('MainRecipe', mainRecipeSchema);
+
+MainRecipe.createIndexes();
 
 module.exports = MainRecipe;
