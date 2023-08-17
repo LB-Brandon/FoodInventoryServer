@@ -10,6 +10,11 @@ const bucketName = process.env.AWS_BUCKET_NAME;
 
 async function getImageUrl(keyword) {
 	try {
+		// print all key
+		console.log('accessKeyId:', accessKeyId);
+		console.log('secretAccessKey:', secretAccessKey);
+		console.log('region:', region);
+		console.log('bucketName:', bucketName);
 		var imageUrl = '';
 		const browser = await puppeteer.launch({
 			headless: 'new',
