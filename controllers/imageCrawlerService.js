@@ -49,7 +49,7 @@ async function getImageUrl(keyword) {
 		const uniqueFileName = `${uuid.v4()}.jpg`;
 		const key = folderPath + uniqueFileName;
 		const params = {
-			Bucket: process.env.AWS_BUKET_NAME,
+			Bucket: process.env.AWS_BUCKET_NAME,
 			Key: key,
 			Body: imageBuffer,
 			ACL: 'public-read',
