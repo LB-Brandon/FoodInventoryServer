@@ -33,6 +33,7 @@ module.exports = {
 			console.log('newRecipeList', newRecipeList);
 			console.log('newRecipeList', typeof newRecipeList);
 
+			// Save Image Url
 			for (const recipe of newRecipeList) {
 				recipe.imageUrl = await imageService.getImageUrl(recipe.name);
 			}
