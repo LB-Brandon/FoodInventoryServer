@@ -54,22 +54,20 @@ async function getImageUrl(keyword) {
 			ACL: 'public-read',
 			ContentType: 'image/jpeg',
 		};
-
-		s3.upload(params, (err, data) => {
-			if (!err) {
-				imageUrl = data.Location;
-				console.log('Image uploaded successfully:', data.Location);
-			} else {
-				console.error('Error uploading image:', err);
-			}
+		const imageUrl = await new Promise((resolve, reject) => {
+			s3.upload(params, (err, data) => {
+				if (!err) {
+					const uploadedImageUrl = data.Location;
+					console.log('Image uploaded successfully:', uploadedImageUrl);
+					resolve(uploadedImageUrl);
+				} else {
+					console.error('Error uploading image:', err);
+					reject(err);
+				}
+			});
 		});
-		// check if imageUrl is empty
-
-		if (imageUrl) {
-			return imageUrl;
-		} else {
-			return null;
-		}
+		await browser.close();
+		return imageUrl;
 	} catch (error) {
 		console.log('Error fetching the HTML:', error);
 		return null;
