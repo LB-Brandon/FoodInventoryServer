@@ -7,10 +7,11 @@ const uuid = require('uuid');
 async function getImageUrl(keyword) {
 	try {
 		// print all key
-		console.log('accessKeyId:', accessKeyId);
-		console.log('secretAccessKey:', secretAccessKey);
-		console.log('region:', region);
-		console.log('bucketName:', bucketName);
+		console.log('AWS.config:', AWS.config);
+		console.log('AWS_ACCESS_KEY', process.env.AWS_ACCESS_KEY);
+		console.log('AWS_SECRET_ACCESS_KEY', process.env.AWS_SECRET_ACCESS_KEY);
+		console.log('AWS_REGION', process.env.AWS_REGION);
+		console.log('AWS_BUCKET_NAME', process.env.AWS_BUCKET_NAME);
 		var imageUrl = '';
 		const browser = await puppeteer.launch({
 			headless: 'new',
