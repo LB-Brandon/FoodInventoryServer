@@ -5,17 +5,18 @@ const imageService = require('./imageCrawlerService');
 module.exports = {
 	getRecipes: async function (req, res) {
 		try {
+			console.log('getRecipes called');
 			const userEmail = req.query.email;
-			console.log('userEmail:', userEmail);
+			// console.log('userEmail:', userEmail);
 			const storedIngredientList = await userService.getUserStoredIngredients(userEmail);
 			// console.log('storedIngredientList:', storedIngredientList);
 			// console.log('storedIngredientList:', typeof storedIngredientList);
 			const recommendedRecipeTitleList = await recipeService.getRecommondedMainRecipeTitleList(storedIngredientList);
-			console.log('recommendedRecipeList:', recommendedRecipeTitleList);
+			// console.log('recommendedRecipeList:', recommendedRecipeTitleList);
 			// console.log('recommendedRecipeList:', typeof recommendedRecipeTitleList);
 
 			const existingRecipeList = await recipeService.getExistingRecipeList(recommendedRecipeTitleList);
-			console.log('existingRecipeList:', existingRecipeList);
+			// console.log('existingRecipeList:', existingRecipeList);
 			existingRecipeList.map((recipe) => {
 				console.log('existingRecipe', recipe.name);
 			});
@@ -31,7 +32,6 @@ module.exports = {
 
 			const newRecipeList = await recipeService.getRecipeDetails(newRecipeTitleList, storedIngredientList);
 			console.log('newRecipeList', newRecipeList);
-			console.log('newRecipeList', typeof newRecipeList);
 
 			// Save Image Url
 			for (const recipe of newRecipeList) {
@@ -40,8 +40,8 @@ module.exports = {
 			await recipeService.saveRecipeList(newRecipeList);
 
 			const combinedRecipeList = [...existingRecipeList, ...newRecipeList];
-			for (const recipe of combinedRecipeList) {
-				console.log('combinedRecipeList - recipe2:', recipe.name);
+			if (combinedRecipeList.length < 5) {
+				console.log('*****combinedRecipeList.length < 5*****');
 			}
 			return res.json({ result: combinedRecipeList });
 		} catch (error) {

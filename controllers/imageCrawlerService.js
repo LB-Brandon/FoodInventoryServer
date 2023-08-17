@@ -41,14 +41,16 @@ async function getImageUrl(keyword) {
 
 		// Upload image to S3
 		const s3 = new AWS.S3();
+		console.log(`Uploading image to S3 : ${keyword}`);
 		// Convert base64 to Buffer
 		const imageBuffer = Buffer.from(base64Image, 'base64');
+		const folderPath = 'main-recipes/';
 		// create unique image file name
 		const uniqueFileName = `${uuid.v4()}.jpg`;
-
+		const key = folderPath + uniqueFileName;
 		const params = {
 			Bucket: process.env.AWS_BUKET_NAME,
-			Key: uniqueFileName,
+			Key: key,
 			Body: imageBuffer,
 			ACL: 'public-read',
 			ContentType: 'image/jpeg',
