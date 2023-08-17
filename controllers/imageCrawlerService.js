@@ -1,28 +1,31 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
+const puppeteer = require('puppeteer');
 
 async function getImageUrl(keyword) {
 	try {
-		const url = `https://www.google.com/search?q=${encodeURIComponent(keyword)}&tbm=isch&tbs=isz:l&hl=en-US`;
-		// const response = await axios.get(url);
+		const browser = await puppeteer.launch({ headless: 'new' });
+		const page = await browser.newPage();
 
-		const headers = {
-			'User-Agent':
-				'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
-		};
+		const url = `https://www.google.com/search?q=${encodeURIComponent(keyword)}&tbm=isch&tbs=isz:m&hl=en-US`;
+		await page.goto(url);
 
-		const response = await axios.get(url, { headers });
-		const $ = cheerio.load(response.data);
-		const targetClassName = '.bRMDJf.islir';
-		const imgElement = $(targetClassName).first();
-		const imgUrl = imgElement.find('img').attr('src');
+		// 이미지 엘리먼트가 나타날 때까지 대기
+		await page.waitForSelector('div.bRMDJf.islir img', { visible: true });
+
+		// 이미지 엘리먼트 선택
+		const imgElement = await page.$('div.bRMDJf.islir img');
+
+		// 이미지 엘리먼트의 src 속성에서 URL 추출
+		const imgUrl = await imgElement.evaluate((img) => img.src);
+
+		await browser.close();
 
 		if (imgUrl) {
-			console.log(`Found URL: ${imgUrl}`);
+			console.log(`Found URL`);
+			return imgUrl;
 		} else {
 			console.log('No image found.');
+			return null;
 		}
-		return imgUrl;
 	} catch (error) {
 		console.log('Error fetching the HTML:', error);
 		return null;
