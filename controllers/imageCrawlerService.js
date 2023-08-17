@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const chromium = require('chrome-aws-lambda');
 const AWS = require('aws-sdk');
 require('dotenv').config({ path: __dirname + '/../.env' });
 const uuid = require('uuid');
