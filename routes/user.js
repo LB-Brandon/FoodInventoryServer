@@ -11,4 +11,7 @@ router.post('/login', userController.login);
 // 유저 재료 등록
 router.post('/addingredients', userController.saveIngredients);
 
+// 유저 재료 조회
+router.get('/useringredients', userController.getUserIngredients);
+
 module.exports = router;

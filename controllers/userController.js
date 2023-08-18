@@ -2,6 +2,17 @@ const userService = require('./userService');
 const userModel = require('../models/userModel');
 
 module.exports = {
+	getUserIngredients: async function (req, res) {
+		try {
+			const userEmail = req.query.email;
+			console.log('userEmail:', userEmail);
+			const storedIngredientList = await userService.getUserStoredIngredients(userEmail);
+			console.log('storedIngredientList:', storedIngredientList);
+			res.json({ result: storedIngredientList });
+		} catch (error) {
+			res.status(500).json({ error: error.message });
+		}
+	},
 	signUp: async function (req, res) {
 		try {
 			const userName = req.body.name;
