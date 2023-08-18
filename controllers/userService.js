@@ -1,6 +1,27 @@
 const userModel = require('../models/userModel');
 
 module.exports = {
+	makeNewUser: (name, password, email) => {
+		const newUser = new userModel({
+			name: name,
+			password: password,
+			email: email,
+		});
+		return newUser;
+	},
+	deleteUserIngredient: async (userEmail, ingredientName) => {
+		try {
+			const user = await userModel.findOne({ email: userEmail });
+			const existingIngredients = user.ingredients;
+			const updatedIngredients = existingIngredients.filter((ingredient) => ingredient !== ingredientName);
+			user.ingredients = updatedIngredients;
+			await user.save();
+			return true;
+		} catch (error) {
+			console.error('Error deleting user ingredient:', error);
+			return false;
+		}
+	},
 	findUserByEmail: async (userEmail) => {
 		try {
 			console.log('findUserByEmail');

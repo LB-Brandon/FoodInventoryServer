@@ -1,5 +1,4 @@
 const userService = require('./userService');
-const userModel = require('../models/userModel');
 
 module.exports = {
 	deleteUserIngredients: async function (req, res) {
@@ -40,11 +39,7 @@ module.exports = {
 			console.log('req.body:', req.body);
 			const foundUser = await userService.findUserByEmail(userEmail);
 			if (!foundUser) {
-				const newUser = new userModel({
-					name: userName,
-					password: userPassword,
-					email: userEmail,
-				});
+				const newUser = userService.makeNewUser(userName, userPassword, userEmail);
 				// save new user to database
 				const status = await userService.addNewUser(newUser);
 				if (status) {
