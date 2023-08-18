@@ -8,7 +8,10 @@ module.exports = {
 			console.log('userEmail:', userEmail);
 			const storedIngredientList = await userService.getUserStoredIngredients(userEmail);
 			console.log('storedIngredientList:', storedIngredientList);
-			res.json({ result: storedIngredientList });
+			const formattedIngredientList = storedIngredientList.map((ingredient) => {
+				return { name: ingredient };
+			});
+			res.json({ result: formattedIngredientList });
 		} catch (error) {
 			res.status(500).json({ error: error.message });
 		}

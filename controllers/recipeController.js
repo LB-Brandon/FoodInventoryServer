@@ -31,6 +31,7 @@ module.exports = {
 			console.log('newRecipeTitleList:', newRecipeTitleList);
 
 			const newRecipeList = await recipeService.getRecipeDetails(newRecipeTitleList, storedIngredientList);
+			newRecipeList = newRecipeList.filter((item) => item !== '');
 			console.log('newRecipeList', newRecipeList);
 
 			// Save Image Url
