@@ -12,6 +12,6 @@ router.post('/login', userController.login);
 router.post('/addingredients', userController.saveIngredients);
 
 // 유저 재료 조회
-router.get('/useringredients', userController.getUserIngredients);
+router.get('/ingredients', userController.getUserIngredients);
 
 module.exports = router;
