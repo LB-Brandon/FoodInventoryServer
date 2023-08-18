@@ -14,4 +14,7 @@ router.post('/addingredients', userController.saveIngredients);
 // 유저 재료 조회
 router.get('/ingredients', userController.getUserIngredients);
 
+// 유저 재료 삭제
+router.delete('/ingredients', userController.deleteUserIngredients);
+
 module.exports = router;

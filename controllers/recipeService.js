@@ -1,5 +1,6 @@
 const { Configuration, OpenAIApi } = require('openai');
 const recipeModel = require('../models/recipeModel');
+const userModel = require('../models/userModel');
 require('dotenv').config({ path: __dirname + '/../.env' });
 const openAPIKey = process.env.API_KEY;
 const config = new Configuration({
@@ -8,6 +9,19 @@ const config = new Configuration({
 const openai = new OpenAIApi(config);
 
 module.exports = {
+	deleteUserIngredient: async (userEmail, ingredientName) => {
+		try {
+			const user = await userModel.findOne({ email: userEmail });
+			const existingIngredients = user.ingredients;
+			const updatedIngredients = existingIngredients.filter((ingredient) => ingredient !== ingredientName);
+			user.ingredients = updatedIngredients;
+			await user.save();
+			return true;
+		} catch (error) {
+			console.error('Error deleting user ingredient:', error);
+			return false;
+		}
+	},
 	saveRecipeList: async (recipeList) => {
 		console.log('Saving recipe list');
 		try {

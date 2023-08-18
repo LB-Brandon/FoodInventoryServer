@@ -2,6 +2,22 @@ const userService = require('./userService');
 const userModel = require('../models/userModel');
 
 module.exports = {
+	deleteUserIngredients: async function (req, res) {
+		try {
+			const userEmail = req.query.email;
+			const ingredientName = req.query.ingredient;
+			console.log('userEmail:', userEmail);
+			console.log('ingredientName:', ingredientName);
+			const status = await userService.deleteUserIngredient(userEmail, ingredientName);
+			if (status) {
+				res.json({ status: status, message: 'success' });
+			} else {
+				res.json({ status: status, message: 'failed' });
+			}
+		} catch (error) {
+			res.status(500).json({ error: error.message });
+		}
+	},
 	getUserIngredients: async function (req, res) {
 		try {
 			const userEmail = req.query.email;
