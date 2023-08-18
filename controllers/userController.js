@@ -3,8 +3,8 @@ const userService = require('./userService');
 module.exports = {
 	deleteUserIngredients: async function (req, res) {
 		try {
-			const userEmail = req.query.email;
-			const ingredientName = req.query.ingredient;
+			const userEmail = req.body.email;
+			const ingredientName = req.body.ingredient;
 			console.log('userEmail:', userEmail);
 			console.log('ingredientName:', ingredientName);
 			const status = await userService.deleteUserIngredient(userEmail, ingredientName);
