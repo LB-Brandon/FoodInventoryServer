@@ -17,7 +17,4 @@ router.get('/ingredients', userController.getUserIngredients);
 // 유저 재료 삭제
 router.post('/deleteingredient', userController.deleteUserIngredients);
 
-// 가진 재료, 없는 재료 조회
-router.get('/seewhatyougot', userController.seeWhatYouGot);
-
 module.exports = router;
