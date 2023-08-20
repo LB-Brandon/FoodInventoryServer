@@ -3,6 +3,27 @@ const userService = require('./userService');
 const imageService = require('./imageCrawlerService');
 
 module.exports = {
+	seeWhatYouGot: async function (req, res) {
+		try {
+			const userEmail = req.query.email;
+			const recipeName = req.query.recipe;
+			const seletedRecipeIngredients = getSelectedRecipeIngredients(recipeName);
+			console.log('seletedRecipeIngredients:', seletedRecipeIngredients);
+			const storedIngredientList = await userService.getUserStoredIngredients(userEmail);
+			console.log('storedIngredientList:', storedIngredientList);
+			const missingIngredients = seletedRecipeIngredients.filter((ingredient) => {
+				return !storedIngredientList.includes(ingredient);
+			});
+			const haveIngredients = seletedRecipeIngredients.filter((ingredient) => {
+				return storedIngredientList.includes(ingredient);
+			});
+			console.log('haveIngredients:', haveIngredients);
+			console.log('missingIngredients:', missingIngredients);
+			res.json({ result: { haveIngredients: haveIngredients, missingIngredients: missingIngredients } });
+		} catch (error) {
+			res.status(500).json({ error: error.message });
+		}
+	},
 	getRecipes: async function (req, res) {
 		try {
 			console.log('getRecipes called');

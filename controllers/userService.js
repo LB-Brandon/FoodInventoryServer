@@ -1,6 +1,11 @@
 const userModel = require('../models/userModel');
 
 module.exports = {
+	getSelectedRecipeIngredients: async (recipeName) => {
+		const recipe = await recipeModel.findOne({ name: recipeName });
+		const recipeIngredients = recipe.ingredients;
+		return recipeIngredients;
+	},
 	makeNewUser: (name, password, email) => {
 		const newUser = new userModel({
 			name: name,
