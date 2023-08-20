@@ -7,7 +7,7 @@ module.exports = {
 		try {
 			const userEmail = req.query.email;
 			const recipeName = req.query.recipe;
-			const seletedRecipeIngredients = getSelectedRecipeIngredients(recipeName);
+			const seletedRecipeIngredients = await recipeService.getSelectedRecipeIngredients(recipeName);
 			console.log('seletedRecipeIngredients:', seletedRecipeIngredients);
 			const storedIngredientList = await userService.getUserStoredIngredients(userEmail);
 			console.log('storedIngredientList:', storedIngredientList);
