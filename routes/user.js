@@ -5,7 +5,7 @@ const userController = require('../controllers/userController');
 // 회원가입
 router.post('/signup', userController.signUp);
 
-// 로그인
+// 로그
 router.post('/login', userController.login);
 
 // 유저 재료 등록
