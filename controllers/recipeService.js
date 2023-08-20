@@ -9,6 +9,11 @@ const config = new Configuration({
 const openai = new OpenAIApi(config);
 
 module.exports = {
+	getSelectedRecipeIngredients: async (recipeName) => {
+		const recipe = await recipeModel.findOne({ name: recipeName });
+		const recipeIngredients = recipe.ingredients;
+		return recipeIngredients;
+	},
 	saveRecipeList: async (recipeList) => {
 		console.log('Saving recipe list');
 		try {
