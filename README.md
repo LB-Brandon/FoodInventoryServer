@@ -9,8 +9,6 @@ Welcome to the Food Inventory Pro backend repository! This repository contains t
 - [API Documentation](#api-documentation)
 - [Technologies Used](#technologies-used)
 - [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
@@ -54,7 +52,3 @@ Contributions are welcome! If you find a bug or have a feature suggestion, pleas
 3. Make your changes and commit: `git commit -m 'Add some feature'`.
 4. Push to the branch: `git push origin feature-name`.
 5. Create a pull request.
-
-## License
-
-This project is licensed under the XYZ License - see the [LICENSE](LICENSE) file for details.
