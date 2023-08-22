@@ -66,10 +66,10 @@ module.exports = {
 			if (foundUser) {
 				if (foundUser.password === userPassword) {
 					console.log('User logged in:', foundUser.name);
-					res.json({ status: true, message: 'success' });
+					res.json({ status: true, message: 'success', name: foundUser.name });
 				} else {
 					console.log('Incorrect password:', userEmail);
-					res.json({ status: false, message: 'Incorrect password', name: foundUser.name });
+					res.json({ status: false, message: 'Incorrect password' });
 				}
 			} else {
 				console.log('Login User not found:', userEmail);
