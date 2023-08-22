@@ -68,11 +68,11 @@ module.exports = {
 					res.json({ status: true, message: 'success' });
 				} else {
 					console.log('Incorrect password:', userEmail);
-					res.json({ status: false, message: 'Incorrect password' });
+					res.json({ status: false, message: 'Incorrect password', name: foundUser.name });
 				}
 			} else {
 				console.log('Login User not found:', userEmail);
-				res.json({ status: false, message: 'User not found', name: foundUser.name });
+				res.json({ status: false, message: 'User not found' });
 			}
 		} catch (error) {
 			console.error('Error logging in user:', error);
