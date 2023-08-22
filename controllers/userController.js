@@ -72,7 +72,7 @@ module.exports = {
 				}
 			} else {
 				console.log('Login User not found:', userEmail);
-				res.json({ status: false, message: 'User not found' });
+				res.json({ status: false, message: 'User not found', name: foundUser.name });
 			}
 		} catch (error) {
 			console.error('Error logging in user:', error);
