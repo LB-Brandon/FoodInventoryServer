@@ -62,6 +62,7 @@ module.exports = {
 			const userPassword = req.body.password;
 			console.log('req.body:', req.body);
 			const foundUser = await userService.findUserByEmail(userEmail);
+			console.log('foundUser:', foundUser);
 			if (foundUser) {
 				if (foundUser.password === userPassword) {
 					console.log('User logged in:', foundUser.name);
