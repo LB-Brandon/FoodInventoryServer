@@ -57,9 +57,12 @@ module.exports = {
 		try {
 			const foundUser = await module.exports.findUserByEmail(userEmail);
 			if (foundUser) {
+				console.log('receivedIngredients:', receivedIngredients);
+				console.log('receivedIngredients, type:', typeof receivedIngredients);
 				const storedUserIngredients = Array.from(foundUser.ingredients);
 				console.log('storedUserIngredients:', storedUserIngredients);
 				const updateUserIngredients = [...storedUserIngredients, ...receivedIngredients];
+				console.log('updateUserIngredients:', updateUserIngredients);
 				const uniqueIngredients = [...new Set(updateUserIngredients)];
 				console.log('uniqueIngredients:', uniqueIngredients);
 				foundUser.ingredients = uniqueIngredients;
