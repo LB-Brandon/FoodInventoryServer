@@ -5,7 +5,9 @@ const imageService = require('./imageCrawlerService');
 module.exports = {
 	getSubRecipes: async function (req, res) {
 		try {
+			console.log('getSubRecipes called');
 			const subRecipeList = await recipeService.getRandomRecipe();
+			console.log('subRecipeList:', subRecipeList);
 			res.json({ result: subRecipeList });
 		} catch (error) {
 			res.status(500).json({ error: error.message });
