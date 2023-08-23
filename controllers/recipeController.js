@@ -3,6 +3,14 @@ const userService = require('./userService');
 const imageService = require('./imageCrawlerService');
 
 module.exports = {
+	getSubRecipes: async function (req, res) {
+		try {
+			const subRecipeList = await recipeService.getRandomRecipe();
+			res.json({ result: subRecipeList });
+		} catch (error) {
+			res.status(500).json({ error: error.message });
+		}
+	},
 	seeWhatYouGot: async function (req, res) {
 		try {
 			const userEmail = req.query.email;
