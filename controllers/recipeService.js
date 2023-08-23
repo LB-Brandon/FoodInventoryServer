@@ -11,15 +11,13 @@ const openai = new OpenAIApi(config);
 module.exports = {
 	getRandomRecipe: async () => {
 		try {
-			recipeModel.aggregate([{ $sample: { size: 5 } }]).then((recipes) => {
-				console.log('Sub recipes', recipes);
-				return recipes;
-			});
+			return await recipeModel.aggregate([{ $sample: { size: 5 } }]);
 		} catch (error) {
 			console.error('Error getting random recipe:', error);
 			throw new Error('Server Error');
 		}
 	},
+
 	getSelectedRecipeIngredients: async (recipeName) => {
 		const recipe = await recipeModel.findOne({ name: recipeName });
 		const recipeIngredients = recipe.ingredients;
