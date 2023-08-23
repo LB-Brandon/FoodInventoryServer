@@ -59,23 +59,23 @@ module.exports = {
 			const newRecipeTitleList = recommendedRecipeTitleList.filter(
 				(name) => !existingRecipeList.some((recipe) => recipe.name === name)
 			);
-			console.log('newRecipeTitleList:', newRecipeTitleList);
+			// console.log('newRecipeTitleList:', newRecipeTitleList);
 
 			var newRecipeList = await recipeService.getRecipeDetails(newRecipeTitleList, storedIngredientList);
 			newRecipeList = newRecipeList.filter((item) => item !== '');
-			console.log('newRecipeList', newRecipeList);
+			// console.log('newRecipeList', newRecipeList);
 
 			// Save Image Url
 			for (const recipe of newRecipeList) {
 				recipe.imageUrl = await imageService.getImageUrl(recipe.name);
-				console.log('recipe.imageUrl', recipe.imageUrl);
+				// console.log('recipe.imageUrl', recipe.imageUrl);
 			}
 			await recipeService.saveRecipeList(newRecipeList);
 
 			const combinedRecipeList = [...existingRecipeList, ...newRecipeList];
-			if (combinedRecipeList.length < 5) {
-				console.log('*****combinedRecipeList.length < 5*****');
-			}
+			// if (combinedRecipeList.length < 5) {
+			// 	console.log('*****combinedRecipeList.length < 5*****');
+			// }
 			return res.json({ result: combinedRecipeList });
 		} catch (error) {
 			res.status(500).json({ error: error.message });

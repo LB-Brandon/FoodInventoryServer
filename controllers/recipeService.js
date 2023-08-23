@@ -12,7 +12,7 @@ module.exports = {
 	getRandomRecipe: async () => {
 		try {
 			recipeModel.aggregate([{ $sample: { size: 5 } }]).then((recipes) => {
-				console.log('recipes', recipes);
+				console.log('Sub recipes', recipes);
 				return recipes;
 			});
 		} catch (error) {
