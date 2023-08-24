@@ -1,6 +1,10 @@
 # Food Inventory Pro Backend
 
-Welcome to the Food Inventory Pro backend repository! This repository contains the server-side code for managing the inventory of food items, automatic recipe generation using OpenAI API, and image scraping with S3 upload capabilities.
+Welcome to the Food Inventory Pro backend repository!
+<br/>There is a Client App too. [Check the App](https://github.com/LB-Brandon/FoodInventoryPro)
+
+## Back-end Architecture
+![image](https://github.com/LB-Brandon/FoodInventoryServer/assets/84883277/2010d6ba-6a09-4079-955c-dd6702ee2b40)
 
 ## Table of Contents
 
@@ -40,8 +44,8 @@ For detailed information on the available API endpoints and how to use them, ref
 
 - User authentication and authorization for secure access.
 - Integration with OpenAI API for automatic recipe generation based on food items.
-- Image scraping for specified recipes and uploading to S3 storage.
-- ...
+- Convert Base64 to Image and scraping for specified recipes and uploading to S3 storage.
+- Bypassing Web Scraping Protection
 
 ## Contributing
 
