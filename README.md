@@ -37,7 +37,7 @@ For detailed information on the available API endpoints and how to use them, ref
 - Node.js with Express.js for building the server.
 - MongoDB for storing food item and user data.
 - OpenAI API for automatic recipe generation.
-- Image scraping with S3 upload capabilities.
+- Image scraping with S3 with bypassing Web Scraping Protection.
 - ...
 
 ## Features
@@ -46,6 +46,7 @@ For detailed information on the available API endpoints and how to use them, ref
 - Integration with OpenAI API for automatic recipe generation based on food items.
 - Convert Base64 to Image and scraping for specified recipes and uploading to S3 storage.
 - Bypassing Web Scraping Protection
+- ...
 
 ## Contributing
 
